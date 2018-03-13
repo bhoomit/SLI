@@ -54,7 +54,7 @@ model.add(GRU(num_units, dropout=dropout))
 if batch_norm:
     model.add(BatchNormalization())
 
-model.add(Dense(3, activation='softmax', kernel_regularizer=keras.regularizers.l2(l2)))
+model.add(Dense(7, activation='softmax', kernel_regularizer=keras.regularizers.l2(l2)))
 
 print(model.summary())
 
@@ -76,7 +76,7 @@ train_generator = ImageDataGenerator(rescale=1./256).flow_from_directory(
 
 model.fit_generator(
     train_generator,
-    epochs=10
+    epochs=20
 )
 
 model.save_weights('models/model_{}.h5'.format(label))
