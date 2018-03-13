@@ -115,6 +115,7 @@ def generate(root):
     for language in range(7):
         directory = os.path.join(root, 'voice/{}/'.format(language))
         count = int(len(os.listdir(directory)) * 0.8)
+        counter = 0
         for filename in os.listdir(directory):
             source = os.path.join(directory, filename)
             if not os.path.isfile(source):
@@ -124,7 +125,8 @@ def generate(root):
             if not os.path.exists(target):
                 process_single_file(source, target)
             count -= 1
-
+            counter += 1
+        print("processed %d files" % (counter))
 """
 Way to invoke this
 
