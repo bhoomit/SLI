@@ -114,13 +114,16 @@ def process_single_file(source, target=None):
 def generate(root):
     for language in range(7):
         directory = os.path.join(root, 'voice/{}/'.format(language))
+        count = int(len(os.listdir(directory)) * 0.8)
         for filename in os.listdir(directory):
             source = os.path.join(directory, filename)
-            target = os.path.join(root, 'train/{}/'.format(language), filename.replace('wav', 'png'))
+            if not os.path.isfile(source):
+                continue
+            folder = 'train' if count > 0 else 'validate'
+            target = os.path.join(root, '{0}/{1}/'.format(folder, language), filename.replace('wav', 'png'))
             if not os.path.exists(target):
                 process_single_file(source, target)
-            break
-        break
+            count -= 1
 
 """
 Way to invoke this
