@@ -68,7 +68,7 @@ model.compile(loss='categorical_crossentropy',
 # this is a generator that will read pictures found in
 # subfolers of 'data/train', and indefinitely generate
 # batches of augmented image data
-train_generator = ImageDataGenerator(rescale=1./256, validation_split=0.2).flow_from_directory(
+train_generator = ImageDataGenerator(rescale=1./256).flow_from_directory(
     'data/train',
     target_size=(858, 128),
     color_mode='grayscale'
@@ -80,3 +80,12 @@ model.fit_generator(
 )
 
 model.save_weights('models/model_{}.h5'.format(label))
+
+
+# bengali_female_mono
+# gujarati_female_mono
+# hindi_female_mono
+# kannada_female_mono
+# marathi_female_mono
+# tamil_female_mono
+# telugu_female_mono
