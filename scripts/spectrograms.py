@@ -101,16 +101,26 @@ def process_single_file(source, target=None):
     return target
 
 
-def generate(files):
-    for iter, line in files: # first line of traininData.csv is header (only for trainingData.csv)
-        filepath, label = line.replace('\n', '').split(',')
-        filename = '{0}/{1}'.format(label, filepath[:-4])
-        target = os.path.join(root, 'data/train/' + filename + '.png')
-        source = os.path.join(root, 'data/voice/' + filepath)
-        if not os.path.exists(target):
-            process_single_file(source, target)
-        print("processed %d files" % (iter + 1))
+# def generate(files):
+#     for iter, line in files: # first line of traininData.csv is header (only for trainingData.csv)
+#         filepath, label = line.replace('\n', '').split(',')
+#         filename = '{0}/{1}'.format(label, filepath[:-4])
+#         target = os.path.join(root, 'data/train/' + filename + '.png')
+#         source = os.path.join(root, 'data/voice/' + filepath)
+#         if not os.path.exists(target):
+#             process_single_file(source, target)
+#         print("processed %d files" % (iter + 1))
 
+def generate(root):
+    for language in range(7):
+        directory = os.path.join(root, 'voice/{}/'.format(language))
+        for filename in os.listdir(directory):
+            source = os.path.join(directory, filename)
+            target = os.path.join(root, 'train/{}/'.format(language), filename.replace('wav', 'png'))
+            if not os.path.exists(target):
+                process_single_file(source, target)
+            break
+        break
 
 """
 Way to invoke this
